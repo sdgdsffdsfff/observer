@@ -10,36 +10,31 @@ require(
       location.hash = '#!/index'
     }
 
-    var App = {
-      init: init
+    function handle(view, notfound) {
+      return function() {
+        var argv = Array.prototype.slice.call(arguments);
+        var frame = notfound || 'views/default';
+        argv.unshift(view);
+        Loader.load($('#content'), frame, {
+          argv: argv
+        }, function() {
+          console.log('page loaded complete');
+        })
+      }
     }
-
-    App.init();
 
     function init() {
-      App.router = new Router()
-      App.router.configure({
-        notfound: handle(null, 'views/notfound')
-      })
-      App.router.on(/!\/index/, handle('views/index'))
-      App.router.init();
-      App.router.nav = function(path) {
-        location.hash = '#!' + path
-      }
+      var router = new Router();
+      router.configure({
+        notfound: handle(null, 'views/common/404')
+      });
 
-      function handle(view, notfound) {
-        return function() {
-          var argv = Array.prototype.slice.call(arguments)
-          var frame = notfound || 'views/default';
-          argv.unshift(view)
-          Loader.load($('#content'), frame, {
-            argv: argv
-          }, function() {
-            console.log('page loaded complete')
-          })
-        }
-      }
+      //路由控制 
+      router.on(/!\/index/, handle('views/index'));
+      router.init();
     }
 
-    window.App = App
-  })
+    // 启动
+    init();
+  }
+);
