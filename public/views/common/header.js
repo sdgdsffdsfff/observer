@@ -2,13 +2,12 @@ define(
   [
     'jquery',
     'brix/base',
-    'handlebars',
     'text!./header.html'
   ],
-  function($, Base, Handlebars, template) {
+  function($, Base, template) {
     return Base.extend({
       render: function() {
-        this.element.innerHTML = Handlebars.compile(template)();
+        this.element.innerHTML = template;
       }
     });
   }

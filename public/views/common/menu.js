@@ -5,26 +5,24 @@ define(
   [
     'jquery',
     'brix/base',
-    'handlebars',
+    'brix/event',
     'brix/loader/util',
+    'components/storage/storage',
     'text!./menu.html'
   ],
   function(
-    $, Base, Handlebars, _, template
+    $, Base, EventManager, _, Storage, template
   ) {
     var W = window;
     var $W = $(W);
 
     return Base.extend({
       init: function() {
-        /*var me = this;
+        var me = this;
         var isFullNav = Storage.getItem('isFullNav');
         var c = me.cache = {
           duration: 250,
           isFullNav: isFullNav === null ? 1 : isFullNav
-        };
-        me.data = {
-          viewId: me.id
         };
         $W.on('resize', c.resizeFn = function() {
           me._resize();
@@ -32,26 +30,54 @@ define(
         $W.on('scroll', c.scrollFn = function() {
           me._scroll();
         });
-        me.on('destroy', function() {
-          $W.off('resize', c.resizeFn);
-          $W.off('scroll', c.scrollFn);
-          clearTimeout(c.resizeT);
-          clearTimeout(c.scrollT);
-        });
-        me.observeLocation({
-          path: true
-        });*/
       },
       render: function() {
-        this.element.innerHTML = Handlebars.compile(template)();
-        // me.setViewHTML();
-        // this._setNavHeight();
+        var manager = new EventManager();
+        this.element.innerHTML = template;
+        this.setInitialState();
+        
+        manager.delegate(this.element, this);
       },
-
       setInitialState: function() {
         var me = this;
         var c = me.cache;
         var $nav = $('#J_' + me.id + '_nav');
+
+        _.extend(c, {
+          navInfo: {
+            n: $nav,
+            i: $nav.find('.menu-icon'),
+            h: $nav.find('.menu-hold-btn'),
+            m: $nav.find('.menu-hold'),
+
+            'menu-ct': $nav.find('.menu-ct'),
+            'menu-ctnr': $nav.find('.menu-ctnr'),
+            //w: fixedWidth,
+            o: $nav.offset(),
+            ps: $nav.css('position')
+          },
+          main: $('#inmain')
+        });
+
+        if (+c.isFullNav === 1) {
+          c.main.css('margin-left', 200);
+          c.navInfo.n.css('width', 200);
+          c.navInfo.i.hide();
+          me._fadeOutIcon();
+        } else if (+c.isFullNav === 0) {
+          c.main.css('margin-left', 40);
+          c.navInfo.n.css('width', 40);
+          c.navInfo.i.show();
+          me._fadeInIcon();
+        }
+
+        me._setNavHeight();
+
+      },
+      setInitialState: function() {
+        var me = this;
+        var c = me.cache;
+        var $nav = $('#J_sub_nav');
 
         _.extend(c, {
           navInfo: {

@@ -1,19 +1,15 @@
 /*所有变量的定义 还有mixin的定义 */
 /*@a-color-hover: #ff8800;*/
 /*通用组件样式,比如各种下拉组件，表格组件等等这种*/
-/*
- * iconfont字体库
- * 地址：http://www.iconfont.cn/showProject?pid=33016
- */
 @font-face {
-  font-family: 'mgfont';
-  src: url('//at.alicdn.com/t/font_1441179117_9172297.eot');
+  font-family: 'obfont';
+  src: url('//at.alicdn.com/t/font_1442237037_8096857.eot');
   /* IE9*/
-  src: url('//at.alicdn.com/t/font_1441179117_9172297.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */ url('//at.alicdn.com/t/font_1441179117_9172297.woff') format('woff'), /* chrome、firefox */ url('//at.alicdn.com/t/font_1441179117_9172297.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/ url('//at.alicdn.com/t/font_1441179117_9172297.svg#mgfont') format('svg');
+  src: url('//at.alicdn.com/t/font_1442237037_8096857.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */ url('//at.alicdn.com/t/font_1442237037_8096857.woff') format('woff'), /* chrome、firefox */ url('//at.alicdn.com/t/font_1442237037_8096857.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/ url('//at.alicdn.com/t/font_1442237037_8096857.svg#obfont') format('svg');
   /* iOS 4.1- */
 }
-.mgfont {
-  font-family: 'mgfont';
+.obfont {
+  font-family: 'obfont';
   font-size: 16px;
   font-style: normal;
   font-weight: normal;
@@ -596,9 +592,10 @@ input[type="checkbox"]:checked:after {
   height: 50px;
   float: left;
   overflow: hidden;
+  text-align: center;
 }
 .common-header .logo a {
-  font-size: 42px;
+  font-size: 60px;
   color: #fff;
 }
 .common-header .nav {
@@ -870,6 +867,9 @@ input[type="checkbox"]:checked:after {
 .lh32 {
   line-height: 32px;
 }
+.vb {
+  vertical-align: bottom;
+}
 .clearfix {
   *zoom: 1;
 }
@@ -948,6 +948,9 @@ input[type="checkbox"]:checked:after {
 }
 .w220 {
   width: 220px;
+}
+.w400 {
+  width: 400px;
 }
 /* 常用颜色 */
 .color-gray {
